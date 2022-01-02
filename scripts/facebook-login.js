@@ -9,11 +9,11 @@ window.fbAsyncInit = function() {
         
     FB.AppEvents.logPageView();  
     
-    FB.getLoginStatus(function(response) {
-        if(response.status === "unknown"){
-            FB.login();
-        }
-    }); 
+    // FB.getLoginStatus(function(response) {
+    //     if(response.status === "unknown"){
+    //         FB.login();
+    //     }
+    // }); 
 };
 
 (function(d, s, id){
@@ -23,3 +23,23 @@ window.fbAsyncInit = function() {
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      if(response.status === "unknown"){
+          userAction(response);
+      }
+    });
+  }
+
+const userAction = async (myBody) => {
+    const response = await fetch('https://expressapp11.azurewebsites.net/facebook-identification', {
+      method: 'POST',
+      body: myBody, // string or object
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const myJson = await response.json(); //extract JSON from the http response
+    // do something with myJson
+  }
