@@ -3,3 +3,8 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  div(class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false")
+  script 
+    include ../scripts/facebook-login.js
+  html 
+    include ../scripts/facebook-login.html
